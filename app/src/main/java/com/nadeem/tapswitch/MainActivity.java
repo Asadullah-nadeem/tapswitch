@@ -1,6 +1,7 @@
 package com.nadeem.tapswitch;
 
 import android.content.ComponentName;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
@@ -8,15 +9,13 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-    private ImageView mainImage;
     private int iconIndex = 1;
+    private final String[] icons = {".icon1", ".icon2", ".icon3"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mainImage = findViewById(R.id.mainImage);
-
+        ImageView mainImage = findViewById(R.id.mainImage);
         mainImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -27,15 +26,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void switchAppIcon() {
         PackageManager pm = getPackageManager();
-
-        disableComponent(pm, "com.nadeem.tapswitch.icon1");
-        disableComponent(pm, "com.nadeem.tapswitch.icon2");
-        disableComponent(pm, "com.nadeem.tapswitch.icon3");
-
-        String nextAlias = "com.nadeem.tapswitch.Icon" + iconIndex;
-        enableComponent(pm, nextAlias);
-
-        iconIndex = (iconIndex % 3) + 1;
+        for (String icon : icons) {
+            disableComponent(pm, "com.nadeem.tapswitch" + icon);
+        }enableComponent(pm, "com.nadeem.tapswitch" + icons[iconIndex]);
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        iconIndex = (iconIndex + 1) % icons.length;
     }
 
     private void enableComponent(PackageManager pm, String componentName) {

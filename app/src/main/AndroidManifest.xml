@@ -5,12 +5,17 @@
         android:allowBackup="true"
         android:label="TapSwitch"
         android:theme="@style/Theme.AppCompat">
-
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-
         <activity-alias
-            android:name="com.nadeem.tapswitch.icon1"
+            android:name=".icon1"
             android:targetActivity=".MainActivity"
             android:exported="true"
             android:icon="@drawable/icon1"
@@ -20,9 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity-alias>
-
         <activity-alias
-            android:name="com.nadeem.tapswitch.icon2"
+            android:name=".icon2"
             android:targetActivity=".MainActivity"
             android:exported="true"
             android:icon="@drawable/icon2"
@@ -32,9 +36,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity-alias>
-
         <activity-alias
-            android:name="com.nadeem.tapswitch.icon3"
+            android:name=".icon3"
             android:targetActivity=".MainActivity"
             android:exported="true"
             android:icon="@drawable/icon3"
